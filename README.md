@@ -29,3 +29,13 @@ on st_intersects(l.geom, a.geom)
 where l is null
 and gsscode like 'E%'
 order by size desc
+
+
+select *, st_area(a.geom) as size
+from vw_areas a
+left join vw_libraries l
+on st_intersects(l.geom, a.geom)
+where l is null
+order by a.population desc
+
+

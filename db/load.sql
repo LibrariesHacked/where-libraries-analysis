@@ -75,3 +75,46 @@ update libraries set postcode = 'SW11 6RD' where name = 'Northcote Library' and 
 update libraries set postcode = 'M46 9JQ' where name = 'Atherton' and postcode = 'M46 9JH';
 update libraries set postcode = 'NW9 4BR' where name = 'Colindale' and postcode = 'NW9 5XL';
 
+
+-- load oa to bua lookup table
+
+create table oa_bua_staging (
+    OA21CD text,
+    BUA22CD text,
+    BUA22NM text,
+    BUA22NMW text,
+    LAD22CD text,
+    LAD22NM text,
+    LAD22NMW text,
+    RGN22CD text,
+    RGN22NM text,
+    RGN22NMW text,
+    ObjectId text
+);
+
+\copy oa_bua_staging from 'data/oa21_to_bua.csv' csv header;
+
+insert into oa_bua(oa, bua)
+select OA21CD, BUA22CD
+from oa_bua_staging;
+
+drop table oa_bua_staging;
+
+-- load oa population data
+
+create table oa_population_staging (
+    date text,
+    geography text,
+    geography_code text,
+    all_persons numeric,
+    female numeric,
+    male numeric
+);
+
+\copy oa_population_staging from 'data/census2021_ts008_oa.csv' csv header quote '"';
+
+insert into oa_population(oa, population)
+select geography_code, all_persons
+from oa_population_staging;
+
+drop table oa_population_staging;
