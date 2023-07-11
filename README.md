@@ -1,6 +1,6 @@
-# where-libraries-analysis
-An analysis of where there are and are not libraries in England
+# Where are there no libraries?
 
+An analysis of where there are and are not libraries in England
 
 ### Libraries dataset
 
@@ -15,3 +15,17 @@ Overall there were 2564 libraries.
 CSV saved.
 
 
+select *
+from vw_libraries l
+left join areas a
+on st_intersects(a.geom, l.geom)
+where a is null
+
+
+select *, st_area(a.geom) as size
+from areas a
+left join vw_libraries l
+on st_intersects(l.geom, a.geom)
+where l is null
+and gsscode like 'E%'
+order by size desc
