@@ -118,3 +118,25 @@ select geography_code, all_persons
 from oa_population_staging;
 
 drop table oa_population_staging;
+
+
+-- load bua to ua/cty lookup table
+
+create table bua_auth_staging (
+    BUA22CD text,
+    BUA22NM text,
+    BUA22NMW text,
+    BUA22NMG text,
+    CTYUA22CD text,
+    CTYUA22NM text,
+    WHOLE_PART text,
+    ObjectId text
+);
+
+\copy bua_auth_staging from 'data/bua_to_ua_cty.csv' csv header;
+
+insert into bua_auth(bua, auth_code, auth_name)
+select BUA22CD, CTYUA22CD, CTYUA22NM
+from bua_auth_staging;
+
+drop table bua_auth_staging;
