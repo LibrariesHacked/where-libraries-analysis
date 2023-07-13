@@ -75,6 +75,10 @@ update libraries set postcode = 'SW11 6RD' where name = 'Northcote Library' and 
 update libraries set postcode = 'M46 9JQ' where name = 'Atherton' and postcode = 'M46 9JH';
 update libraries set postcode = 'NW9 4BR' where name = 'Colindale' and postcode = 'NW9 5XL';
 update libraries set postcode = 'TA24 8NP' where name = 'Porlock' and postcode = 'TA24 7HD';
+update libraries set postcode = 'EX23 8LG' where name = 'Bude Library & Information Service' and postcode = 'EX23 9LG';
+update libraries set postcode = 'DH6 2LW' where name = 'Shotton Library' and postcode = 'DL6 2LW';
+update libraries set postcode = 'SY9 5AQ' where name = 'Bishop''s Castle' and postcode = 'SY5 9AQ';
+
 
 
 -- load oa to bua lookup table
