@@ -39,11 +39,25 @@ order by size desc;
 
 
 ```sql
-select a.name, a.auth_names
+select a.name, a.auth_names, a.population, a.min_imd_decile
 from vw_areas a
 left join vw_libraries l
 on st_intersects(l.geom, a.geom)
 where l is null
+and a.population is not null
 order by a.population desc;
 ```
+
+
+```sql
+select a.name, a.auth_names, a.population, a.min_imd_decile
+from vw_areas a
+left join vw_libraries l
+on st_intersects(l.geom, a.geom)
+where l is null
+and a.population <= 5000
+and min_imd_decile <= 2
+order by a.population desc;
+```
+
 

@@ -17,8 +17,12 @@ set client_encoding = 'UTF8';
 \i 'db/tbl_oa_population.sql';
 \i 'db/tbl_oa_bua.sql';
 \i 'db/tbl_bua_auth.sql';
+\i 'db/tbl_oa11_oa21.sql';
+\i 'db/tbl_oa11_lsoa11.sql';
+\i 'db/tbl_imd.sql';
 
 -- create views
+\i 'db/vw_oa_imd.sql';
 \i 'db/vw_libraries.sql';
 \i 'db/vw_areas.sql';
 

@@ -74,6 +74,7 @@ update libraries set postcode = 'WF1 2EB' where name = 'Wakefield One' and postc
 update libraries set postcode = 'SW11 6RD' where name = 'Northcote Library' and postcode = 'SW11 6HW';
 update libraries set postcode = 'M46 9JQ' where name = 'Atherton' and postcode = 'M46 9JH';
 update libraries set postcode = 'NW9 4BR' where name = 'Colindale' and postcode = 'NW9 5XL';
+update libraries set postcode = 'TA24 8NP' where name = 'Porlock' and postcode = 'TA24 7HD';
 
 
 -- load oa to bua lookup table
@@ -140,3 +141,65 @@ select BUA22CD, CTYUA22CD, CTYUA22NM
 from bua_auth_staging;
 
 drop table bua_auth_staging;
+
+
+-- load oa11 to oa21 lookup table
+
+create table oa11_to_oa21_staging (
+    ObjectId text,
+    OA11CD text,
+    OA21CD text,
+    CHNGIND text,
+    LAD22CD text,
+    LAD22NM text,
+    LAD22NMW text
+);
+
+\copy oa11_to_oa21_staging from 'data/oa11_to_oa21.csv' csv header;
+
+insert into oa11_oa21(oa11, oa21)
+select OA11CD, OA21CD
+from oa11_to_oa21_staging;
+
+drop table oa11_to_oa21_staging;
+
+-- load oa11 to lsoa11 lookup table
+
+create table oa11_to_lsoa11_staging (
+    OA11CD text,
+    LSOA11CD text,
+    LSOA11NM text,
+    MSOA11CD text,
+    MSOA11NM text,
+    LAD11CD text,
+    LAD11NM text,
+    LAD11NMW text,
+    ObjectId text
+);
+
+\copy oa11_to_lsoa11_staging from 'data/oa11_to_lsoa11.csv' csv header;
+
+insert into oa11_lsoa11(oa11, lsoa11)
+select OA11CD, LSOA11CD
+from oa11_to_lsoa11_staging;
+
+drop table oa11_to_lsoa11_staging;
+
+-- load imd table
+
+create table imd_staging (
+    "LSOA code (2011)" text,
+    "LSOA name (2011)" text,
+    "Local Authority District code (2019)" text,
+    "Local Authority District name (2019)" text,
+    "Index of Multiple Deprivation (IMD) Rank" text,
+    "Index of Multiple Deprivation (IMD) Decile" integer
+);
+
+\copy imd_staging from 'data/imd.csv' csv header;
+
+insert into imd(lsoa11, imd_decile)
+select "LSOA code (2011)", "Index of Multiple Deprivation (IMD) Decile"
+from imd_staging;
+
+drop table imd_staging;
