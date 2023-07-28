@@ -1,16 +1,18 @@
-# Where are there no libraries?
+# Missing libraries
 
-An analysis of where there are and are not libraries in England
+An analysis of places where there are no libraries in England
 
 ## Data preparation
 
+There are various open data sources used for this analysis. These needed some manual preparation, detailed here.
+
 ### Libraries dataset
 
-Download from the December 2022 file listed at https://www.artscouncil.org.uk/supporting-arts-museums-and-libraries/supporting-libraries
+Download from the [December 2022 file](https://www.artscouncil.org.uk/supporting-arts-museums-and-libraries/supporting-libraries) published on the Arts Council England website.
 
-Filter by: Static Library, Open, Not ICL.
+The data was filtered to include entries of type 'Static Library' (to exclude archives, mobile libraries), 'Open' (to include current libraries) and not those of type 'Independent Community Library' (as these are independent from statutory provision).
 
-There were 5 libraries marked as Independent Community Libraries but also marked as part of the Library Services statutory provision. Filter those out.
+There were 5 libraries that were marked as Independent Community Libraries but also marked as part of the Library Services statutory provision. That seemed to be an error, so they were not included.
 
 Overall there were 2564 static and statutory public libraries in England. CSV saved as `england_library_postcodes.csv`.
 
