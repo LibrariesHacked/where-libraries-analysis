@@ -16,6 +16,15 @@ There were 5 libraries that were marked as Independent Community Libraries but a
 
 Overall there were 2564 static and statutory public libraries in England. CSV saved as `england_library_postcodes.csv`.
 
+### Built up areas
+
+
+### Built up areas to unitary and county authoritaries
+
+A lookup published by the ONS. 
+
+This isn't directly used in the end results other than to be an additional level of detail provided in the output file.
+
 
 ## Data queries
 
